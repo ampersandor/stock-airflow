@@ -2,7 +2,7 @@ import requests
 import mysql.connector
 from mysql.connector import errorcode
 
-apikey = "?"
+apikey = "??"
 def extract(symbol, apikey, interval):
     url = f'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol={symbol}&interval={interval}&apikey={apikey}'
     r = requests.get(url)

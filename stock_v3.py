@@ -5,6 +5,7 @@ from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime
 
+apikey="?"
 
 def extract(**context):
     symbol = context["params"]["symbol"]
@@ -42,7 +43,6 @@ def load(**context):
             print("Database does not exist")
         else:
             print(err)
-        raise
     else:
         cur = connection.cursor()
         cur.execute(f"DROP TABLE IF EXISTS stock.apple;")
@@ -81,7 +81,7 @@ dag = DAG(
 extract = PythonOperator(
     task_id = 'extract',
     python_callable = extract,
-    params = {"symbol": "AAPL", "apikey": "HZUQLDZQ3ZW5NTRB", "interval": "5min"},
+    params = {"symbol": "AAPL", "apikey": apikey, "interval": "5min"},
     dag = dag)
 
 transform = PythonOperator(
@@ -95,7 +95,7 @@ load = PythonOperator(
     params = {
         'user': 'airflow',
         'password': 'airflow',
-        'host': '10.11.184.183',
+        'host': 'localhost',
         'port': '3306'
     },
     dag = dag)

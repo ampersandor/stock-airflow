@@ -2,15 +2,17 @@ import requests
 import mysql.connector
 from mysql.connector import errorcode
 
-apikey = "?"
+apikey = "HZUQLDZQ3ZW5NTRB"
 url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=AAPL&interval=5min&apikey={}'
 
 r = requests.get(url.format(apikey))
 
 raw_data = r.json()
 
+
 time_data = raw_data["Time Series (5min)"]
 
+print(time_data)
 
 try:
     connection = mysql.connector.connect(
